@@ -18,7 +18,13 @@ FROM junpeihep/centos7-epics-base:latest
 WARNING: The repository is Under construction.
 
 ## Environment variables
-The following variables are set as the environment variable. 
+The following variables are set as the environment variable (Some of them have been defined in [centos7-epics-base](https://hub.docker.com/r/junpeihep/centos7-epics-base). 
 |variable name|contents|
 |:-------|:---------------|
+|WORK_DIR|/usr/local/epics|
+|EPICS_VER|3.15.8|
+|EPICS|/usr/local/epics|
+|EPICS_HOST_ARCH|linux-x86_64|
+|PATH	|/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/epics/base-3.15.8/bin/linux-x86_64|
 |NETDEV_VERSION|1.2.2|
+|EPICS_BASE|${EPICS}/base-${EPICS_VER}|
