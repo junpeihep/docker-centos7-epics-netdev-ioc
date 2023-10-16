@@ -27,10 +27,29 @@ RUN mkdir -p ${EPICS_BASE}/../modules/src && \
 
 # go to the top-level directory of the device support, then edit configure/RELEASE (removed as already defined)
 RUN cd ${EPICS_BASE}/../modules/src/netDev-${NETDEV_VERSION} && \
-    sed 's/EPICS_BASE=\/opt\/epics\/base/EPICS_BASE=${EPICS}\/base-${EPICS_VER}/' configure/RELEASE > configure/RELEASE.local && \
+    sed "s|EPICS_BASE=\/opt\/epics\/base|EPICS_BASE=${EPICS_BASE}|" configure/RELEASE > configure/RELEASE.local && \
     cat configure/RELEASE.local && \
     mv configure/RELEASE.local configure/RELEASE
 
-# build
+# netDev build
 RUN cd ${EPICS_BASE}/../modules/src/netDev-${NETDEV_VERSION} && \
     make
+
+# IOC application
+ENV APP_DIR=${EPICS}/iocApp \
+    USER=ioc_user
+
+RUN mkdir ${APP_DIR} && cd ${APP_DIR} && \
+    ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/makeBaseApp.pl -t ioc iocApp && \
+    ${EPICS_BASE}/bin/${EPICS_HOST_ARCH}/makeBaseApp.pl -i -t ioc iocApp && \
+    echo
+
+# modify IOC Application to use the device support
+RUN echo "NETDEV = ${EPICS_BASE}/../modules/src/netDev-${NETDEV_VERSION}" >> ${APP_DIR}/configure/RELEASE && \
+    cd ${APP_DIR} && \
+    sed 's/#ioc_DBD += xxx.dbd/ioc_DBD += netDev.dbd/' iocApp/src/Makefile > iocApp/src/Makefile.mod && \
+    mv iocApp/src/Makefile.mod iocApp/src/Makefile && \
+    sed 's/#ioc_LIBS += xxx/ioc_LIBS += netDev/' iocApp/src/Makefile > iocApp/src/Makefile.mod && \
+    mv iocApp/src/Makefile.mod iocApp/src/Makefile && \
+    cat iocApp/src/Makefile
+
