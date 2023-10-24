@@ -22,10 +22,10 @@ The following variables are set as the environment variable (Some of them have b
 |variable name|contents|
 |:-------|:---------------|
 |WORK_DIR|/usr/local/epics|
-|EPICS_VER|3.15.8|
+|EPICS_VER|7.0.7|
 |EPICS|/usr/local/epics|
 |EPICS_HOST_ARCH|linux-x86_64|
-|PATH	|/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/epics/base-3.15.8/bin/linux-x86_64|
+|PATH	|/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/epics/base-7.0.7/bin/linux-x86_64|
 |NETDEV_VERSION|1.2.2|
 |EPICS_BASE|${EPICS}/base-${EPICS_VER}|
 |ENV APP_DIR|${EPICS}/iocApp |

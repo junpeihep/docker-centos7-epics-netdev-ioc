@@ -1,7 +1,7 @@
 # EPICS IOC Application using Device Support for General Network Devices (netDev) on CetnOS7
 
 # Base image
-FROM junpeihep/centos7-epics-base:epics-3.15.8
+FROM junpeihep/centos7-epics-base:epics-7.0.7
 
 # Maintainer
 LABEL maintainer="junpeihep <junpeihep@gmail.com>"
@@ -10,7 +10,7 @@ LABEL maintainer="junpeihep <junpeihep@gmail.com>"
 ENV NETDEV_VERSION=1.2.2
 
 # Version info
-LABEL version="centos7-epics3.15.8-netDev${NETDEV_VERSION}"
+LABEL version="centos7-epics7.0.7-netDev${NETDEV_VERSION}"
 
 # dnf update
 RUN yum -y update
